@@ -1,8 +1,4 @@
-
-module RedmineMenuManagerExtensions
-end
-
-require 'redmine/menu_manager'
+require_dependency 'redmine/menu_manager'
 
 module Redmine
   module MenuManager
@@ -10,7 +6,7 @@ module Redmine
       attr_reader :remote
       def initialize_with_remote_option(name,url,options)
         if remote_options = options.delete(:remote)
-          remote_options = {} unless remote_options.kind_of?(::Hash)
+          remote_options = {} unless remote_options.kind_of?(Hash)
           @remote = remote_options
           initialize_without_remote_option(name,url,options)
         else
@@ -25,8 +21,10 @@ module Redmine
         if user_remote_options = item.remote
           remote_options  = {
             :url     => url,
-            :success => "toggleStealthClassesOnBody();"
+            :success => "toggleStealthClassesOnBody();",
+            :failure => "alert('#{l(RedmineStealth::Stealth::MESSAGE_TOGGLE_FAILED)}')"
           }
+
           remote_options.update(user_remote_options)
           link_to_remote(h(caption), remote_options, 
                          item.html_options(:selected => selected))

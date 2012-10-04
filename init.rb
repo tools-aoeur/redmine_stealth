@@ -1,22 +1,18 @@
-
-require 'redmine'
-require 'redmine/i18n'
-
-require 'redmine_stealth'
-require 'redmine_menu_manager_extensions'
+require_dependency 'redmine_stealth/redmine_menu_manager_extensions'
 
 if Rails::VERSION::MAJOR >= 3
-  require 'stealth_mail_interceptor'
+  require_dependency 'redmne_stealth/stealth_mail_interceptor'
 else
-  require 'action_mailer_base_extensions'
+  require_dependency 'redmine_stealth/action_mailer_base_extensions'
 end
 
-require 'stealth_hooks'
+require_dependency 'redmine_stealth/hooks'
+
+require_dependency 'redmine_stealth/application_helper_extensions'
+
+require_dependency 'redmine_stealth/user_extensions'
 
 Redmine::Plugin.register :redmine_stealth do
-
-  extend Redmine::I18n
-
   name        'Redmine Stealth plugin'
   author      'Riley Lynch'
   description 'Enables users to disable Redmine email notifications ' +
@@ -30,22 +26,17 @@ Redmine::Plugin.register :redmine_stealth do
     author_url 'http://github.com/teleological'
   end
 
-  permission :toggle_stealth_mode, :stealth => :toggle
-
   decide_toggle_display =
     lambda do |*_|
-      show_toggle = false
-      if my_user = ::User.current
-        toggle_action = {:controller => 'stealth', :action => 'toggle'}
-        if my_user.allowed_to?(toggle_action,nil,:global => true)
-          show_toggle = true
-        end
+      if my_user = User.current
+        my_user.stealth_allowed
+      else
+        false
       end
-      show_toggle
     end
 
   stealth_menuitem_captioner =
-    lambda { |project| ::RedmineStealth.toggle_stealth_label }
+    lambda { |project| RedmineStealth::Stealth.toggle_stealth_label }
 
   menu :account_menu, :stealth,
     { :controller => 'stealth', :action => 'toggle' },
@@ -53,26 +44,6 @@ Redmine::Plugin.register :redmine_stealth do
     :if       => decide_toggle_display,
     :caption  => stealth_menuitem_captioner,
     :html     => {
-      :id => ::RedmineStealth::DOMID_STEALTH_TOGGLE,
-    },
-    :remote   => {
-      :failure => "alert('#{l(::RedmineStealth::MESSAGE_TOGGLE_FAILED)}')",
-    }
+      :id => RedmineStealth::Stealth::DOMID_STEALTH_TOGGLE,
+    }, :remote => true
 end
-
-require 'application_helper'
-require 'stealth_css_helper'
-
-stealth_css_helper_mixin = lambda do |*_|
-  unless ApplicationHelper.included_modules.include?(StealthCssHelper)
-    ApplicationHelper.send(:include, StealthCssHelper)
-  end
-end
-
-if Rails::VERSION::MAJOR >= 3
-  ActionDispatch::Callbacks.to_prepare(&stealth_css_helper_mixin)
-else
-  require 'dispatcher'
-  Dispatcher.to_prepare(&stealth_css_helper_mixin)
-end
-
