@@ -1,4 +1,5 @@
-require_dependency 'principal'
+require_dependency 'project'
+require_dependency 'user'
 
 module RedmineStealth
   module UserExtensions
