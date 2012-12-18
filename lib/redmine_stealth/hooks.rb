@@ -9,7 +9,7 @@ module RedmineStealth
     def view_layouts_base_html_head(context={})
       stylesheet_link_tag('stealth', :plugin => 'redmine_stealth') +
       javascript_include_tag('stealth.js',
-                             :plugin => 'redmine-stealth-plugin')
+                             :plugin => 'redmine_stealth')
     end
 
     def view_layouts_base_body_bottom(context={})
