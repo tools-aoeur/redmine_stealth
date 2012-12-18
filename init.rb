@@ -15,29 +15,31 @@ else
 end
 
 require 'redmine_stealth/hooks'
+require 'redmine_stealth/application_helper_extensions'
+require 'redmine_stealth/user_extensions'
 
 Redmine::Plugin.register :redmine_stealth do
 
   extend Redmine::I18n
 
   plugin_locale_glob = respond_to?(:directory) ?
-    File.join(directory, 'config', 'locales', '*.yml') :
-    File.join(Rails.root, 'vendor', 'plugins',
-              'redmine_stealth', 'config', 'locales', '*.yml')
+      File.join(directory, 'config', 'locales', '*.yml') :
+      File.join(Rails.root, 'vendor', 'plugins',
+                'redmine_stealth', 'config', 'locales', '*.yml')
 
   ::I18n.load_path += Dir.glob(plugin_locale_glob)
 
   menu_options = {
-    :html => {
-      'id' => 'stealth_toggle',
-      'data-failure-message' => l(RedmineStealth::MESSAGE_TOGGLE_FAILED)
-    }
+      :html => {
+          'id' => 'stealth_toggle',
+          'data-failure-message' => l(RedmineStealth::MESSAGE_TOGGLE_FAILED)
+      }
   }
 
   name        'Redmine Stealth plugin'
   author      'Riley Lynch'
   description 'Enables users to disable Redmine email notifications ' +
-              'for their actions'
+                  'for their actions'
   version     '0.6.0'
 
   if respond_to?(:url)
@@ -54,7 +56,7 @@ Redmine::Plugin.register :redmine_stealth do
   decide_toggle_display = lambda do |*_|
     can_toggle = false
     if user = ::User.current
-      can_toggle = user.allowed_to?(toggle_url, nil, :global => true)
+      can_toggle = user.allowed_to?(toggle_url, nil, :global => true) && user.stealth_allowed?
     end
     can_toggle
   end
@@ -68,9 +70,9 @@ Redmine::Plugin.register :redmine_stealth do
     menu_options[:html].update('remote' => true, 'method' => :post)
   else
     menu_options[:remote] = {
-      :method => :post,
-      :failure => 'RedmineStealth.notifyFailure();',
-      :with => %q{(function() {
+        :method => :post,
+        :failure => 'RedmineStealth.notifyFailure();',
+        :with => %q{(function() {
         var $toggle = $('stealth_toggle');
         var params = $toggle.readAttribute('data-params-toggle');
         return params ? ('toggle=' + params) : '';
@@ -79,9 +81,9 @@ Redmine::Plugin.register :redmine_stealth do
   end
 
   menu :account_menu, :stealth, toggle_url, {
-    :first    => true,
-    :if       => decide_toggle_display,
-    :caption  => stealth_menuitem_captioner
+      :first    => true,
+      :if       => decide_toggle_display,
+      :caption  => stealth_menuitem_captioner
   }.merge(menu_options)
 
 end

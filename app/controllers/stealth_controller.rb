@@ -1,9 +1,8 @@
 
 class StealthController < ApplicationController
-
   unloadable
 
-  before_filter :authorize_global, :only => :toggle
+  before_filter :check_can_stealth
 
   def toggle
     is_cloaked = toggle_for_params
@@ -22,5 +21,9 @@ class StealthController < ApplicationController
     end
   end
 
+  def check_can_stealth
+    render_403 unless User.current.stealth_allowed
+  end
+  
 end
 
