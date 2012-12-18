@@ -1,4 +1,4 @@
-helper_path = '/../../../test/test_helper'
+helper_path = '/../../test/test_helper'
 
 helper = File.expand_path(File.dirname(__FILE__) + helper_path)
 
