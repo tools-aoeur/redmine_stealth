@@ -22,11 +22,7 @@ Redmine::Plugin.register :redmine_stealth do
 
   extend Redmine::I18n
 
-  plugin_locale_glob = respond_to?(:directory) ?
-      File.join(directory, 'config', 'locales', '*.yml') :
-      File.join(Rails.root, 'vendor', 'plugins',
-                'redmine_stealth', 'config', 'locales', '*.yml')
-
+  plugin_locale_glob = File.join(File.dirname(__FILE__), 'config', 'locales', '*.yml')
   ::I18n.load_path += Dir.glob(plugin_locale_glob)
 
   menu_options = {
