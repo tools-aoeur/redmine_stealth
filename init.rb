@@ -32,10 +32,9 @@ Redmine::Plugin.register :redmine_stealth do
       }
   }
 
-  name        'Redmine Stealth plugin'
+  name        'Redmine Stealth Plugin'
   author      'Riley Lynch'
-  description 'Enables users to disable Redmine email notifications ' +
-                  'for their actions'
+  description 'This plugin enables the Redmine administrator to disable email notifications temporarily.'
   version     '0.6.0'
 
   if respond_to?(:url)
