@@ -30,6 +30,8 @@ The initial author of the plugin is [Riley Lynch](https://github.com/teleologica
 
 3. Restart Redmine.
 
+Now you should be able to see the plugin in **Administration > Plugins**.
+
 ## Usage
 
 To activate the stealth mode feature, click **My account** and then select the **Allow toggling stealth mode** check box in the **Redmine Stealth** section.  
