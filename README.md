@@ -54,6 +54,10 @@ After you finish, click **Disable Stealth Mode** to return to normal mode.
 Other Redmine users can also enable or disable the stealth mode by clicking the **Enable Stealth Mode** / **Disable Stealth Mode** link, if they have the corresponding permissions.
 ![stealth permissions](stealth_4.PNG)
 
+## Maintainers
+
+Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
+
 ## License
 
 This software is licensed under the GNU GPL v2. See COPYRIGHT and COPYING for details.
