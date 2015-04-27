@@ -1,6 +1,6 @@
 # Redmine Stealth Plugin
 
-[![Build Status](https://travis-ci.org/Undev/redmine_stealth.png)](https://travis-ci.org/Undev/redmine_stealth)
+[![Build Status](https://travis-ci.org/Undev/redmine_stealth_modified.svg?branch=master)](https://travis-ci.org/Undev/redmine_stealth_modified)
 [![Code Climate](https://codeclimate.com/github/Undev/redmine_stealth.png)](https://codeclimate.com/github/Undev/redmine_stealth)
 
 This plugin allows the Redmine administrator to temporarily disable sending email messages when the Redmine content is added or changed, for example, when updating issues or wiki pages. The plugin is intended to allow the administrator to make bulk changes or minor corrections without flooding the inboxes of other users.
