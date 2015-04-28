@@ -26,16 +26,16 @@ The initial author of the plugin is [Riley Lynch](https://github.com/teleologica
 
             git clone https://github.com/Undev/redmine_stealth.git plugins/redmine_stealth
 
-3. Update the Gemfile.lock file by running the following commands:  
+2. Update the Gemfile.lock file by running the following commands:  
 
          rm Gemfile.lock  
          bundle install
             
-2. This plugin requires a migration. Run the following command to upgrade your database (make a database backup before):  
+3. This plugin requires a migration. Run the following command to upgrade your database (make a database backup before):  
 
         bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
-3. Restart Redmine.
+4. Restart Redmine.
 
 Now you should be able to see the plugin in **Administration > Plugins**.
 
