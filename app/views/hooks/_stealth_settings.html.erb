@@ -1,8 +1,8 @@
-<fieldset class="box tabular">
-  <legend><%=l(:stealth)%></legend>
-  <p>
-    <%= form.check_box(:stealth_allowed, 
-                       :disabled => (true unless User.current.admin?))
-    %>
-  </p>
-</fieldset>
+<% if User.current.admin? %>
+  <fieldset class="box tabular">
+    <legend><%= l(:stealth) %></legend>
+    <p>
+      <%= form.check_box(:stealth_allowed) %>
+    </p>
+  </fieldset>
+<% end %>

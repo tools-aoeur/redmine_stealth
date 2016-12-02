@@ -1,56 +1,39 @@
-
 module RedmineStealth
 
   include Redmine::I18n
 
-  USE_UJS = defined?(::Jquery)
-
-  PREF_STEALTH_ENABLED   = :stealth_mode
-
-  MESSAGE_ACTION_CLOAK   = 'enable_stealth_mode'
-  MESSAGE_ACTION_DECLOAK = 'disable_stealth_mode'
-  MESSAGE_TOGGLE_FAILED  = 'failed_to_toggle_stealth_mode'
-
   module_function
 
-  def cloaked?
-    current_user = ::User.current
-    !! (current_user && current_user.pref[PREF_STEALTH_ENABLED])
+  def status_label(is_activateed)
+    is_activateed ? l(:enable_stealth_mode) : l(:disable_stealth_mode)
   end
 
-  def status_label(is_cloaked)
-    is_cloaked ? l(MESSAGE_ACTION_DECLOAK) : l(MESSAGE_ACTION_CLOAK)
-  end
-
-  def toggle_stealth_mode!
-    is_cloaked = cloaked?
-    is_cloaked ? decloak! : cloak!
-  end
-
-  def cloak!
-    set_stealth_mode(true)
-  end
-
-  def decloak!
-    set_stealth_mode(false)
-  end
-
-  def set_stealth_mode(is_cloaked)
-    if current_user = ::User.current
-      user_prefs = current_user.pref
-      user_prefs[PREF_STEALTH_ENABLED] = is_cloaked
-      user_prefs.save! if user_prefs.changed?
-      is_cloaked
-    else
-      logger.warn("No user to set stealth mode") if logger
-    end
-  end
-
-  def javascript_toggle_statement(is_cloaked)
-    label = status_label(is_cloaked)
-    method = "RedmineStealth.#{ is_cloaked ? 'cloak' : 'decloak' }"
+  def javascript_toggle_statement(is_activateed)
+    label  = status_label(is_activateed)
+    method = "RedmineStealth.#{ is_activateed ? 'activate' : 'deactivate' }"
     "#{method}('#{label}');"
+  end
+
+  def prepend_patch(patch, *targets)
+    targets = Array(targets).flatten
+    targets.each do |target|
+      unless target.included_modules.include? patch
+        target.prepend patch
+      end
+    end
   end
 
 end
 
+require_dependency 'redmine_stealth/mail_interceptor'
+require_dependency 'redmine_stealth/controller_hooks'
+require_dependency 'redmine_stealth/view_hooks'
+require_dependency 'redmine_stealth/patches/application_helper_patch'
+require_dependency 'redmine_stealth/patches/user_patch'
+require_dependency 'redmine_stealth/patches/anonymous_user_patch'
+
+ActionDispatch::Callbacks.to_prepare do
+  RedmineStealth.prepend_patch RedmineStealth::Patches::ApplicationHelperPatch, ApplicationHelper
+  RedmineStealth.prepend_patch RedmineStealth::Patches::UserPatch, User
+  RedmineStealth.prepend_patch RedmineStealth::Patches::AnonymousUserPatch, AnonymousUser
+end
