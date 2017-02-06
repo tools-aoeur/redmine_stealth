@@ -5,7 +5,7 @@ module RedmineStealth
   module_function
 
   def status_label(is_activateed)
-    is_activateed ? l(:enable_stealth_mode) : l(:disable_stealth_mode)
+    is_activateed ? l(:disable_stealth_mode) : l(:enable_stealth_mode)
   end
 
   def javascript_toggle_statement(is_activateed)
