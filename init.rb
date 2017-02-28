@@ -5,7 +5,7 @@ Redmine::Plugin.register :redmine_stealth do
   name 'Redmine Stealth Plugin'
   author 'Riley Lynch, Restream'
   description 'This plugin enables the Redmine administrator to disable email notifications temporarily.'
-  version '0.7.0'
+  version '0.7.1'
   url 'https://github.com/Restream/redmine_stealth'
 
   permission :toggle_stealth_mode, stealth: :toggle
