@@ -28,12 +28,10 @@ end
 require_dependency 'redmine_stealth/mail_interceptor'
 require_dependency 'redmine_stealth/controller_hooks'
 require_dependency 'redmine_stealth/view_hooks'
-require_dependency 'redmine_stealth/patches/application_helper_patch'
 require_dependency 'redmine_stealth/patches/user_patch'
 require_dependency 'redmine_stealth/patches/anonymous_user_patch'
 
 ActionDispatch::Callbacks.to_prepare do
-  RedmineStealth.prepend_patch RedmineStealth::Patches::ApplicationHelperPatch, ApplicationHelper
   RedmineStealth.prepend_patch RedmineStealth::Patches::UserPatch, User
   RedmineStealth.prepend_patch RedmineStealth::Patches::AnonymousUserPatch, AnonymousUser
 end
