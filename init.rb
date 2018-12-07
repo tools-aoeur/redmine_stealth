@@ -1,20 +1,26 @@
 require 'redmine'
 
-Redmine::Plugin.register :redmine_stealth do
+Rails.logger.info 'o=>Starting Redmine Stealth plugin for RedMine'
 
+plugin_name = 'redmine_stealth'
+
+Redmine::Plugin.register plugin_name.to_sym do
   name 'Redmine Stealth Plugin'
   author 'Riley Lynch, Restream'
-  description 'This plugin enables the Redmine administrator to disable email notifications temporarily.'
-  version '0.7.2'
-  url 'https://github.com/Restream/redmine_stealth'
+  description 'Enables users to disable Redmine email notifications ' +
+              'for their actions'
+  version '0.7.3'
+  url 'https://github.com/Restream' + plugin_name
+  if respond_to?(:author_url)
+    author_url 'http://github.com/teleological'
+  end
 
   permission :toggle_stealth_mode, stealth: :toggle
 
   menu :account_menu, :stealth, { controller: 'stealth', action: 'toggle' }, {
     first:   true,
     if:      ->(_) {
-      User.current.stealth_allowed? &&
-        User.current.allowed_to?({ controller: 'stealth', action: 'toggle' }, nil, global: true)
+      User.current.stealth_allowed?
     },
     caption: ->(_) {
       RedmineStealth.status_label(User.current.stealth_mode_active?)
@@ -28,4 +34,4 @@ Redmine::Plugin.register :redmine_stealth do
 
 end
 
-require 'redmine_stealth'
+require plugin_name

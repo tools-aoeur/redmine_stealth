@@ -1,4 +1,4 @@
-class AddStealthAllowedToUsers < ActiveRecord::Migration
+class AddStealthAllowedToUsers < ActiveRecord::Migration[4.2]
   def up
     unless column_exists? :users, :stealth_allowed
       add_column :users, :stealth_allowed, :boolean, default: false

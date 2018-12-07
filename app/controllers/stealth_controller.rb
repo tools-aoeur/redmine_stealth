@@ -1,7 +1,5 @@
 class StealthController < ApplicationController
-  unloadable
-
-  before_filter :check_can_stealth
+  before_action :check_can_stealth
 
   def toggle
     toggle_by_params
