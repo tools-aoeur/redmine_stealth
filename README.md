@@ -67,4 +67,4 @@ Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
 
 This software is licensed under the GNU GPL v2. See COPYRIGHT and COPYING for details.
 
-<kbd>![alt text](https://compteur-visites.ennder.fr/sites/29/token/github/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
+<kbd>![alt text](https://compteur-visites.ennder.fr/sites/33/token/githubst/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
