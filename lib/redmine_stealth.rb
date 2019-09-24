@@ -34,7 +34,7 @@ if this_plugin
 end
 
 
-ActiveSupport::Reloader.to_prepare do
+Rails.configuration.to_prepare do
   ::Rails.logger.info "o=>\\__ #{plugin_name} V#{plugin_version}"
 
   require_dependency 'redmine_stealth/controller_hooks'
