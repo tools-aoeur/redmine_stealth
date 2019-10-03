@@ -9,7 +9,7 @@ Redmine::Plugin.register plugin_name.to_sym do
   author 'Riley Lynch, Restream, Jérôme BATAILLE'
   description 'Enables users to disable Redmine email notifications ' +
               'for their actions'
-  version '0.7.4'
+  version '0.7.5'
   url 'https://github.com/Restream' + plugin_name
   if respond_to?(:author_url)
     author_url 'http://github.com/teleological'
