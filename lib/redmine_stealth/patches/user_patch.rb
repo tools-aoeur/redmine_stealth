@@ -6,8 +6,14 @@ module RedmineStealth
     module UserPatch
       def self.prepended(base)
         base.class_eval do
-          safe_attributes :stealth_allowed, if: lambda { |_, current_user| current_user.admin? }
+          safe_attributes :stealth_allowed, if: lambda { |_, current_user|
+            current_user.admin? || current_user.stealth_mode_permission? || current_user.stealth_allowed?
+          }
         end
+      end
+
+      def stealth_mode_permission?
+        User.current.allowed_to?({ controller: 'stealth', action: 'toggle' }, nil, global: true)
       end
 
       def stealth_mode_active?

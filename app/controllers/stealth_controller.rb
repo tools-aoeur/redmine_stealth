@@ -1,6 +1,4 @@
 class StealthController < ApplicationController
-  unloadable
-
   before_action :check_can_stealth
 
   def toggle

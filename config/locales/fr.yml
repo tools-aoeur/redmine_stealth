@@ -1,0 +1,8 @@
+# French strings go here for Rails i18n
+fr:
+  stealth: "Redmine Stealth"
+  enable_stealth_mode: "Activer le Mode Stealth"
+  disable_stealth_mode: "Désactiver le Mode Stealth"
+  failed_to_toggle_stealth_mode: "Échec : activation du Mode Stealth."
+  field_stealth_allowed: "Permettre l'activation du Mode Stealth"
+

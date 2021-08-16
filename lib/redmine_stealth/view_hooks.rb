@@ -14,9 +14,9 @@ module RedmineStealth
 
       javascript_include_tag('stealth', plugin: 'redmine_stealth') +
         javascript_tag(<<-JS)
-          jQuery(function($) { 
+          jQuery(function($) {
             #{init_state}
-            RedmineStealth.failureMessage = "#{l(:failed_to_toggle_stealth_mode)}"; 
+            RedmineStealth.failureMessage = "#{l(:failed_to_toggle_stealth_mode)}";
           });
         JS
     end

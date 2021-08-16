@@ -4,6 +4,10 @@ require_dependency 'user'
 module RedmineStealth
   module Patches
     module AnonymousUserPatch
+      def stealth_mode_permission?
+        false
+      end
+
       def stealth_mode_active?
         false
       end
