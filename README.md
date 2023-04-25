@@ -10,7 +10,7 @@ The initial author of the plugin is [Riley Lynch](https://github.com/teleologica
 
 ## Copmatibility
 
-This plugin si compatible with Redmine 4.x and later. Detailed information here: [travis](https://travis-ci.org/Restream/redmine_stealth)
+This plugin si compatible with Redmine 5.x and later. Detailed information here: [travis](https://travis-ci.org/Restream/redmine_stealth)
 
 ## Installation
 
