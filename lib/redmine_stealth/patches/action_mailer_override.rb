@@ -1,6 +1,8 @@
-module ActionMailerOverride
-  module MessageDeliveryOverride
-    module StealthPatch
+
+require_dependency 'action_mailer'
+module RedmineStealth
+  module Patches
+    module ActionMailerOverride
       def deliver_later(options={})
         if User.current.stealth_mode_active?
           if Rails.logger
@@ -26,6 +28,6 @@ end
 
 module ActionMailer
   class MessageDelivery
-    prepend ActionMailerOverride::MessageDeliveryOverride::StealthPatch
+    prepend RedmineStealth::Patches::ActionMailerOverride
   end
 end

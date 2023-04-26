@@ -37,3 +37,5 @@ module RedmineStealth
     end
   end
 end
+
+RedmineStealth.prepend_patch RedmineStealth::Patches::UserPatch, User
