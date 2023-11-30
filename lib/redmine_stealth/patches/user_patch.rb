@@ -22,6 +22,7 @@ module RedmineStealth
 
       def activate_stealth_mode
         return unless stealth_allowed?
+
         pref[:stealth_mode] = true
         pref.save!
       end

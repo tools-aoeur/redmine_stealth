@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 
 class MyControllerTest < ActionController::TestCase
   fixtures :projects, :news, :users, :email_addresses, :members
@@ -13,7 +13,7 @@ class MyControllerTest < ActionController::TestCase
     @request.session[:user_id] = @admin.id
 
     attributes = @admin.attributes.merge(stealth_allowed: true)
-    post :account, user: attributes
+    post :account, params: { user: attributes }
 
     assert_response :redirect
     @admin.reload
@@ -25,10 +25,10 @@ class MyControllerTest < ActionController::TestCase
     @request.session[:user_id] = @some_user.id
 
     attributes = @some_user.attributes.merge(stealth_allowed: true)
-    post :account, user: attributes
+    post :account, params: { user: attributes }
 
     assert_response :redirect
     @some_user.reload
-    refute @some_user.stealth_allowed?
+    assert_not @some_user.stealth_allowed?
   end
 end

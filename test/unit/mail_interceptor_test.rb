@@ -1,16 +1,16 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 
 class UserPatchTest < ActiveSupport::TestCase
   fixtures :projects, :users, :email_addresses, :user_preferences, :members, :member_roles, :roles,
-    :groups_users,
-    :trackers, :projects_trackers,
-    :enabled_modules,
-    :versions,
-    :issue_statuses, :issue_categories, :issue_relations, :workflows,
-    :enumerations,
-    :issues, :journals, :journal_details,
-    :custom_fields, :custom_fields_projects, :custom_fields_trackers, :custom_values,
-    :time_entries
+           :groups_users,
+           :trackers, :projects_trackers,
+           :enabled_modules,
+           :versions,
+           :issue_statuses, :issue_categories, :issue_relations, :workflows,
+           :enumerations,
+           :issues, :journals, :journal_details,
+           :custom_fields, :custom_fields_projects, :custom_fields_trackers, :custom_values,
+           :time_entries
 
   def setup
     @user = User.find(1)
@@ -23,7 +23,7 @@ class UserPatchTest < ActiveSupport::TestCase
     @user.activate_stealth_mode
     ActionMailer::Base.deliveries.clear
     issue = build_issue
-    with_settings notified_events: %w(issue_added) do
+    with_settings notified_events: %w[issue_added] do
       assert issue.save
       assert_equal 0, ActionMailer::Base.deliveries.size
     end
@@ -33,7 +33,7 @@ class UserPatchTest < ActiveSupport::TestCase
     @user.deactivate_stealth_mode
     ActionMailer::Base.deliveries.clear
     issue = build_issue
-    with_settings notified_events: %w(issue_added) do
+    with_settings notified_events: %w[issue_added] do
       assert issue.save
       assert_equal 1, ActionMailer::Base.deliveries.size
     end
@@ -45,10 +45,9 @@ class UserPatchTest < ActiveSupport::TestCase
     Issue.new(
       project_id: 1,
       tracker_id: 1,
-      author_id:  3, status_id: 1,
-      priority:   IssuePriority.all.first,
-      subject:    'test_create', estimated_hours: '1:30'
+      author_id: 3, status_id: 1,
+      priority: IssuePriority.first,
+      subject: 'test_create', estimated_hours: '1:30'
     )
   end
-
 end

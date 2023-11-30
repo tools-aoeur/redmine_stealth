@@ -10,18 +10,16 @@ class StealthController < ApplicationController
 
   def toggle_by_params
     case params[:toggle]
-      when 'true'
-        User.current.activate_stealth_mode
-      when 'false'
-        User.current.deactivate_stealth_mode
-      else
-        User.current.toggle_stealth_mode
+    when 'true'
+      User.current.activate_stealth_mode
+    when 'false'
+      User.current.deactivate_stealth_mode
+    else
+      User.current.toggle_stealth_mode
     end
   end
 
   def check_can_stealth
     render_403 unless User.current.stealth_allowed?
   end
-
 end
-
