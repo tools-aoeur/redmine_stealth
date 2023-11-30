@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 
 class UserPatchTest < ActiveSupport::TestCase
   fixtures :users, :email_addresses
@@ -8,7 +8,7 @@ class UserPatchTest < ActiveSupport::TestCase
     user.update_attribute :stealth_allowed, true
     user.activate_stealth_mode
     user.update_attribute :stealth_allowed, false
-    refute user.stealth_mode_active?
+    assert_not user.stealth_mode_active?
   end
 
   def test_stealth_mode_on_if_allowed
@@ -17,5 +17,4 @@ class UserPatchTest < ActiveSupport::TestCase
     user.activate_stealth_mode
     assert user.stealth_mode_active?
   end
-
 end
