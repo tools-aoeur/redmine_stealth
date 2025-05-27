@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_stealth do
   name        'Stealth Plugin'
   author      'Riley Lynch, Restream, Jérôme BATAILLE'
   description 'Enables users to disable Redmine email notifications for their actions'
-  version     '1.0.2'
+  version     '1.0.3'
   url         'https://github.com/tools-aoeur/redmine_stealth'
   author_url  'https://github.com/tools-aoeur'
 
