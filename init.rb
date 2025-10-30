@@ -1,4 +1,5 @@
-Rails.logger.info 'Starting Redmine Stealth plugin for RedMine'
+require_relative 'lib/redmine_stealth/hooks/view_hooks'
+require_relative 'lib/redmine_stealth/hooks/controller_hooks'
 
 Redmine::Plugin.register :redmine_stealth do
   name        'Stealth Plugin'
@@ -29,7 +30,7 @@ end
 # see https://www.redmine.org/issues/36245#note-11 and following for changes with zeitwerk autoloading
 Rails.application.config.after_initialize do
   require_relative 'lib/redmine_stealth'
-  paths = '/lib/redmine_stealth/{patches/*_patch,hooks/*_hook}.rb'
+  paths = '/lib/redmine_stealth/patches/*_patch.rb'
   Dir.glob(File.dirname(__FILE__) + paths).each do |file|
     require_dependency file
   end
